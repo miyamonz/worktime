@@ -4,14 +4,24 @@ import InputTime from "./InputTime";
 import { format } from "date-fns";
 
 const wrapCell = t => <Cell>{t}</Cell>;
-export default function Row({ row }) {
+export default function Row({ row, onUpdate }) {
   const works = Object.keys(row);
   return (
     <>
       {works
         .map(name => {
           if (name === "day") return format(row.day, "yyyy-MM-dd");
-          else return <InputTime />;
+
+          const updateDate = value => onUpdate({ ...row, [name]: value });
+
+          return (
+            <>
+              {row[name]}
+              <InputTime
+                onChange={({ target: { value } }) => updateDate(value)}
+              />
+            </>
+          );
         })
         .map(wrapCell)}
     </>

@@ -1,5 +1,5 @@
 import React from "react";
 
-export default function InputTime() {
-  return <input type="time" />;
+export default function InputTime({ onChange }) {
+  return <input type="time" onChange={onChange} />;
 }
