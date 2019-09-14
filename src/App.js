@@ -2,33 +2,35 @@ import React from "react";
 import useStore from "./store";
 
 import { Grid, Cell } from "styled-css-grid";
-import InputTime from "./InputTime";
-import { format } from "date-fns";
+import Row from "./Row";
 
 export default function App() {
-  const [{ days, works }, dispatch] = useStore();
+  const [{ days }, dispatch] = useStore();
+
+  const works = Object.keys(days[0]);
+
+  const addDate = () =>
+    dispatch(({ days }) => ({
+      days: [...days, { day: new Date() }]
+    }));
+
+  const Header = () => (
+    <>
+      {works.map(name => (
+        <Cell width={1} key={`header.${name}`}>
+          {name}
+        </Cell>
+      ))}
+    </>
+  );
   return (
     <>
       <h1>work time</h1>
-      <Grid columns={works.length + 1} gap="2px">
-        <Cell width={1} key={`LU`}>
-          date
-        </Cell>
-        {works.map(name => (
-          <Cell width={1} key={`header.${name}`}>
-            {name}
-          </Cell>
-        ))}
+      <button onClick={addDate}>add</button>
+      <Grid columns={works.length} gap="2px">
+        <Header />
         {days.map(row => (
-          <>
-            <Cell>{format(row.day, "yyyy-MM-dd")}</Cell>
-            <Cell>
-              <InputTime />
-            </Cell>
-            <Cell>
-              <InputTime />
-            </Cell>
-          </>
+          <Row {...{ row }} />
         ))}
       </Grid>
       <svg>
