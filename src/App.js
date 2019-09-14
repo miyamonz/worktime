@@ -3,6 +3,7 @@ import useStore from "./store";
 
 import { Grid, Cell } from "styled-css-grid";
 import InputTime from "./InputTime";
+import { format } from "date-fns";
 
 export default function App() {
   const [{ days, works }, dispatch] = useStore();
@@ -20,7 +21,7 @@ export default function App() {
         ))}
         {days.map(row => (
           <>
-            <Cell>{row.day.toString()}</Cell>
+            <Cell>{format(row.day, "yyyy-MM-dd")}</Cell>
             <Cell>
               <InputTime />
             </Cell>
