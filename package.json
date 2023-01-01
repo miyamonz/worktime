@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "parcel": "^1.12.3"
+    "parcel": "^2.8.2"
   },
   "dependencies": {
     "date-fns": "^2.0.1",
